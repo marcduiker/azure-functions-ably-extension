@@ -11,10 +11,14 @@ namespace AblyExtension
         {
         }
 
-        public AblyAttribute(string apiKey, string channel)
+        public AblyAttribute(
+            string apiKey,
+            string channel,
+            string eventName)
         {
             ApiKey = apiKey;
             Channel = channel;
+            EventName = eventName;
         }
 
         [AutoResolve]
