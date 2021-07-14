@@ -1,0 +1,13 @@
+POST http://localhost:7071/api/AblyAsyncCollectorTest HTTP/1.1
+Content-Type: application/json
+
+[
+    {
+        "id" : "{{$guid}}",
+        "name": "Grace Hopper"
+    },
+    {
+        "id" : "{{$guid}}",
+        "name": "Margareth Hamilton"
+    },
+]

@@ -1,5 +1,6 @@
 ﻿using System;
-using IO.Ably;
+using System.Collections.Generic;
+using Microsoft.Azure.WebJobs.Host.Bindings;
 using Microsoft.Azure.WebJobs.Host.Config;
 
 namespace AblyExtension
@@ -21,11 +22,12 @@ namespace AblyExtension
 
             var rule = context.AddBindingRule<AblyAttribute>();
             rule.AddValidator(ValidateAttribute);
+            rule.BindToCollector<AblyBindingOpenType>(typeof(AblyBindingConverter<>), this);
         }
 
         internal AblyBindingContext CreateContext(AblyAttribute attribute)
         {
-            var ablyClient = new AblyRealtime(attribute.ApiKey);
+            var ablyClient =  _ablyClientFactory.CreateClient(attribute.ApiKey);
 
             return new AblyBindingContext {
                 AblyClient = ablyClient,
@@ -52,6 +54,25 @@ namespace AblyExtension
                 string attributeProperty = $"{nameof(AblyAttribute)}.{nameof(AblyAttribute.EventName)}";
                 throw new InvalidOperationException(
                     $"The Ably event name must be set via the {attributeProperty} property.");
+            }
+        }
+
+        private class AblyBindingOpenType : OpenType.Poco
+        {
+            public override bool IsMatch(Type type, OpenTypeMatchContext context)
+            {
+                if (type.IsGenericType
+                    && type.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+                {
+                    return false;
+                }
+
+                if (type.FullName == "System.Object")
+                {
+                    return true;
+                }
+
+                return base.IsMatch(type, context);
             }
         }
     }
