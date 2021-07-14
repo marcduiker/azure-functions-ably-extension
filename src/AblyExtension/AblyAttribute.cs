@@ -3,7 +3,7 @@ using Microsoft.Azure.WebJobs.Description;
 
 namespace AblyExtension
 {
-    [AttributeUsage(AttributeTargets.Parameter)]
+    [AttributeUsage(AttributeTargets.ReturnValue | AttributeTargets.Parameter)]
     [Binding]
     public class AblyAttribute : Attribute
     {
