@@ -4,6 +4,6 @@ namespace AblyExtension
 {
     public interface IAblyClientFactory
     {
-        AblyRealtime CreateClient(string apiKey);
+        IRestClient CreateClient(string apiKey);
     }
 }

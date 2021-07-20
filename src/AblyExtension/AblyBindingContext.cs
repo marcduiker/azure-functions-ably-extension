@@ -6,6 +6,6 @@ namespace AblyExtension
     {
         public AblyAttribute ResolvedAttribute { get; set; }
 
-        public AblyRealtime AblyClient { get; set; }
+        public IRestClient AblyClient { get; set; }
     }
 }

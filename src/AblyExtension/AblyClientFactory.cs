@@ -7,9 +7,9 @@ namespace AblyExtension
 
     public class AblyClientFactory : IAblyClientFactory
     {
-        public AblyRealtime CreateClient(string apiKey)
+        public IRestClient CreateClient(string apiKey)
         {
-            return new AblyRealtime(apiKey);
+            return new AblyRest(apiKey);
         }
     }
 }
