@@ -1,6 +1,4 @@
-﻿using System;
-using IO.Ably;
-using Microsoft.Azure.WebJobs.Description;
+﻿using IO.Ably;
 
 namespace AblyExtension
 {
